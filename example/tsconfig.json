@@ -1,0 +1,68 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      },
+      {
+        "name": "babel-plugin-transform-typescript-metadata"
+      },
+      {
+        "name": "@babel/plugin-proposal-decorators",
+        "options": {
+          "legacy": true
+        }
+      },
+      {
+        "name": "babel-plugin-parameter-decorator"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "../src/*"
+      ]
+    },
+    "target": "ES5",
+    "moduleResolution": "node"
+  },
+  "plugins": [
+    {
+      "name": "babel-plugin-transform-typescript-metadata"
+    },
+    {
+      "name": "@babel/plugin-proposal-decorators",
+      "options": {
+        "legacy": true
+      }
+    },
+    {
+      "name": "babel-plugin-parameter-decorator"
+    }
+  ],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
