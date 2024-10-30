@@ -1,9 +1,13 @@
 {
   "name": "rw-next-api",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Create your api with controller and decorators",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rabhweb/rw-next-api.git"
+  },
   "scripts": {
     "dev": "cd example && ts-node server.ts",
     "build": "tsc",
