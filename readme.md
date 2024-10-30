@@ -20,15 +20,19 @@ npm install rw-next-api
 
 ### Folder Structure
 
-Here's the folder structure for the Todo application:
+Here's the folder structure for the Todo application example:
 
 ```
 project-root
 ├── app
 │   ├── api
 │   │   └── v1
-│   │       └── [...args]
-│   │           └── route.ts
+│   │   │     └── [...v1args]
+│   │   │        └── route.ts
+│   │   └── v2
+│   │       └──[...v2args]
+│   │            └── route.ts
+
 ├── services
 │   └── TodoService.ts
 ├── controllers
@@ -39,7 +43,9 @@ project-root
 └── tsconfig.json
 ```
 
-### 1. Create the Todo Service
+> **Note:** The developer is free to structure their API route paths as they see fit. The example provided follows a versioned API structure (`/api/v1`), but you can organize your routes in a way that best suits your application's needs.
+
+### 2. Create the Todo Service
 
 Create a file named `TodoService.ts`:
 
@@ -90,7 +96,7 @@ export class TodoService {
 }
 ```
 
-### 2. Create the Todo Controller
+### 3. Create the Todo Controller
 
 Create a file named `TodoController.ts`:
 
@@ -138,4 +144,67 @@ export class TodoController extends NextApiController {
     }
   }
 }
+```
+
+```typescript
+//app/api/v1/[...args]/route.ts
+import { NextApiRouter } from 'rw-next-api';
+import { TodoController } from '../../../controller/TodoController';
+
+// Initialize the NextApiRouter with the base path '/api/v1'
+const router = new NextApiRouter('/api/v1');
+
+// Add a route for the TodoController
+router.addRoute({
+  name: '/todos',
+  controller: TodoController,
+});
+
+// Get the handler from the router
+const handler = router.handler();
+
+// Expose the router handler as methods for different HTTP verbs
+export {
+  handler as GET,
+  handler as POST,
+  handler as PUT,
+  handler as DELETE,
+  handler as OPTIONS,
+};
+```
+
+### 4. Fetch Todos using cURL
+
+To fetch all todos, you can use the following cURL command:
+
+```bash
+curl -X GET http://localhost:3000/api/v1/todos
+```
+
+To fetch a specific todo by ID, replace `:id` with the actual ID of the todo:
+
+```bash
+curl -X GET http://localhost:3000/api/v1/todos/:id
+```
+
+To create a new todo, use the following cURL command with a JSON payload:
+
+```bash
+curl -X POST http://localhost:3000/api/v1/todos \
+    -H "Content-Type: application/json" \
+    -d '{"title": "New Todo", "completed": false}'
+```
+
+To update an existing todo, use the following cURL command with a JSON payload and replace `:id` with the actual ID of the todo:
+
+```bash
+curl -X PUT http://localhost:3000/api/v1/todos/:id \
+    -H "Content-Type: application/json" \
+    -d '{"title": "Updated Todo", "completed": true}'
+```
+
+To delete a todo, replace `:id` with the actual ID of the todo:
+
+```bash
+curl -X DELETE http://localhost:3000/api/v1/todos/:id
 ```
